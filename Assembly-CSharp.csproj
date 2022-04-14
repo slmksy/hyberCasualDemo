@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CharacterMoving.cs" />
+    <Compile Include="Assets\Scripts\MandatoryHorizontalMoving.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
