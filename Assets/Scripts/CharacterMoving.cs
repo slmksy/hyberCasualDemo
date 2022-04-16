@@ -68,7 +68,7 @@ public class CharacterMoving : MonoBehaviour
             transform.position = charaterInitialPos;
             mainCam.transform.position = camInitialPos;
         }
-        if (other.gameObject.name.Contains("EndLine"))
+        if (other.gameObject.name.Equals("FinishLine"))
         {
             isFinished = true;
         }
