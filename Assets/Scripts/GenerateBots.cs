@@ -12,8 +12,14 @@ namespace Assets.Scripts
         public GameObject botPrefab;
         void Start()
         { 
-            var initialPos = new Vector3(0, 0, UnityEngine.Random.Range(CharacterValues.minPosZ, CharacterValues.maxPosZ));
-            Instantiate(botPrefab, initialPos, botPrefab.transform.rotation);
+           
+            for (int i = 0; i < 10;++i) 
+            {
+                var initialPos = new Vector3(0, 0, UnityEngine.Random.Range(CharacterValues.minPosZ, CharacterValues.maxPosZ));
+                var bot = Instantiate(botPrefab, initialPos, botPrefab.transform.rotation);
+                BotsObjectModel.Instance.AddBot(bot);
+            }
+           
         }
     }
 }

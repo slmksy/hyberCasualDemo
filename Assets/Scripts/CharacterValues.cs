@@ -9,8 +9,8 @@ namespace Assets.Scripts
 {
     public class CharacterValues
     {
-        public const float maxPosZ = 13;
-        public const float minPosZ = -13;
+        public const float maxPosZ = 12.5f;
+        public const float minPosZ = -12.5f;
 
         public Vector3 charaterInitialPos;
         public bool isFinished;

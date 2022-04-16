@@ -2,6 +2,7 @@ using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterMoving : MonoBehaviour
 {
@@ -25,9 +26,7 @@ public class CharacterMoving : MonoBehaviour
             gameObject.GetComponent<Animator>().enabled = false;
             return;
         }
-
-        RunCharacter();
-
+     
         if (Input.GetKey(KeyCode.LeftArrow)) 
         {
             Swerve(true);
@@ -42,6 +41,17 @@ public class CharacterMoving : MonoBehaviour
         {
             Restart();
         }
+
+
+        UpdateMyRank();
+        RunCharacter();
+    }
+
+    private void UpdateMyRank() 
+    {
+        var rank = BotsObjectModel.Instance.GetMyRank(gameObject);
+        var txtRank = GameObject.Find("txtRank").GetComponent<Text>();
+        txtRank.text = string.Concat("RANK : " + rank.ToString());
     }
 
     private void Restart() 

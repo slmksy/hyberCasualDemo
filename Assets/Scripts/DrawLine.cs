@@ -17,7 +17,7 @@ namespace Assets.Scripts
 
         private void Start()
         {
-            
+            fingerPositions = new List<Vector3>();
         }
 
         private void Update()
