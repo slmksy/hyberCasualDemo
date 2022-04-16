@@ -9,6 +9,7 @@ public class CharacterMoving : MonoBehaviour
 
     private Vector3 camInitialPos;
     private Vector3 charaterInitialPos;
+    private bool isFinished;
 
     private float swerveSpeed = 3;
     private float runSpeed = 15f;
@@ -23,7 +24,13 @@ public class CharacterMoving : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Walk();
+        if (isFinished)
+        {
+            gameObject.GetComponent<Animator>().enabled = false;
+            return;
+        }
+
+        RunCharacter();
 
         if (Input.GetKey(KeyCode.LeftArrow)) 
         {
@@ -57,9 +64,13 @@ public class CharacterMoving : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name.Contains("Obstacle"))
-        {
+        {           
             transform.position = charaterInitialPos;
             mainCam.transform.position = camInitialPos;
+        }
+        if (other.gameObject.name.Contains("EndLine"))
+        {
+            isFinished = true;
         }
     }
 
@@ -70,7 +81,7 @@ public class CharacterMoving : MonoBehaviour
         transform.position += vec;
     }
 
-    private void Walk() 
+    private void RunCharacter() 
     {
         var vec = new Vector3(1, 0, 0) * runSpeed * Time.deltaTime;
         transform.position += vec;
