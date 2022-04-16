@@ -10,18 +10,35 @@ namespace Assets.Scripts
     public class DrawLine : MonoBehaviour
     {
         public GameObject linePrefab;
-        public GameObject currentLine;
-
-        public LineRenderer lineRenderer;
-        public EdgeCollider2D edgeCollider;
-        public List<Vector3> fingerPositions;
+        private GameObject currentLine;
+        private LineRenderer lineRenderer;
+        private EdgeCollider2D edgeCollider;
+        private List<Vector3> fingerPositions;
 
         private void Start()
         {
             
         }
 
-        private bool isDownOnMine(Vector2 mousePosition) 
+        private void Update()
+        {
+            if (Input.GetMouseButtonDown(0) && IsDownOnMine(Input.mousePosition)) 
+            {                             
+                CreateLine();
+            }
+            if (Input.GetMouseButton(0)&& IsDownOnMine(Input.mousePosition)) 
+            {                           
+                var tempPos = GetRaycastHit(Input.mousePosition).point;
+                var distance = Vector3.Distance(tempPos, fingerPositions[fingerPositions.Count - 1]);
+    
+                if (distance > 0.1f) 
+                {
+                    UpdateLine(tempPos);
+                }
+            }
+        }
+
+        private bool IsDownOnMine(Vector2 mousePosition)
         {
             var hit = GetRaycastHit(mousePosition);
             if (hit.collider == null)
@@ -30,26 +47,6 @@ namespace Assets.Scripts
             }
 
             return hit.collider.gameObject.Equals(gameObject);
-        }
-
-        private void Update()
-        {
-            if (Input.GetMouseButtonDown(0) && isDownOnMine(Input.mousePosition)) 
-            {                             
-                CreateLine();
-                Debug.LogWarning("GetMouseButtonDown");
-            }
-            if (Input.GetMouseButton(0)&& isDownOnMine(Input.mousePosition)) 
-            {                           
-                var tempFingerPos = GetRaycastHit(Input.mousePosition).point;
-                var distance = Vector3.Distance(tempFingerPos, fingerPositions[fingerPositions.Count - 1]);
-    
-                if (distance > 0.1f) 
-                {
-                    Debug.LogWarning("distance " + distance);
-                    UpdateLine(tempFingerPos);
-                }
-            }
         }
 
         private RaycastHit GetRaycastHit(Vector3 mousePosition)

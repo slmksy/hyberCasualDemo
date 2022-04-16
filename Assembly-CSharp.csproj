@@ -59,6 +59,9 @@
     <Compile Include="Assets\Scripts\MandatoryHorizontalMoving.cs" />
     <Compile Include="Assets\Scripts\CharacterMoving.cs" />
     <Compile Include="Assets\Scripts\DrawLine.cs" />
+    <Compile Include="Assets\Scripts\OpponentMoving.cs" />
+    <Compile Include="Assets\Scripts\CharacterValues.cs" />
+    <Compile Include="Assets\Scripts\GenerateBots.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
