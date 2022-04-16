@@ -8,6 +8,7 @@ public class MandatoryHorizontalMoving : MonoBehaviour
     private const int minPosZ = -12;
     private float speed = 3f;
     private int directionVal = 1;
+    
     // Start is called before the first frame update
     void Start()
     {

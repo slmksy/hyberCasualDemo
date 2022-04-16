@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\GenerateBots.cs" />
     <Compile Include="Assets\Scripts\OpponentMoving.cs" />
     <Compile Include="Assets\Scripts\BotsObjectModel.cs" />
+    <Compile Include="Assets\Scripts\PaintedAreaCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

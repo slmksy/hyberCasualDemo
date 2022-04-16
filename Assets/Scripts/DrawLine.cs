@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -14,10 +10,12 @@ namespace Assets.Scripts
         private LineRenderer lineRenderer;
         private EdgeCollider2D edgeCollider;
         private List<Vector3> fingerPositions;
+        private PaintedAreaCalculator paintedAreaCalculator;
 
         private void Start()
         {
             fingerPositions = new List<Vector3>();
+            paintedAreaCalculator = new PaintedAreaCalculator();
         }
 
         private void Update()
@@ -27,14 +25,16 @@ namespace Assets.Scripts
                 CreateLine();
             }
             if (Input.GetMouseButton(0)&& IsDownOnMine(Input.mousePosition)) 
-            {                           
-                var tempPos = GetRaycastHit(Input.mousePosition).point;
-                var distance = Vector3.Distance(tempPos, fingerPositions[fingerPositions.Count - 1]);
-    
-                if (distance > 0.1f) 
-                {
-                    UpdateLine(tempPos);
-                }
+            {
+                var newPoint = GetRaycastHit(Input.mousePosition).point;
+                var lastPoint = fingerPositions[fingerPositions.Count - 1];
+                var distance = Vector3.Distance(newPoint, lastPoint);
+
+                if (distance > 0.1f)
+                {                   
+                    UpdateLine(newPoint);                  
+                    paintedAreaCalculator.CalculatePaintedArea(newPoint, distance, lineRenderer.startWidth);                   
+                }            
             }
         }
 
@@ -66,8 +66,9 @@ namespace Assets.Scripts
         private void UpdateLine(Vector3 newFingerPos) 
         {
             fingerPositions.Add(newFingerPos);
-            lineRenderer.positionCount += 1;          
-            lineRenderer.SetPosition(lineRenderer.positionCount - 1, newFingerPos); ;
+            lineRenderer.positionCount += 1;
+            lineRenderer.SetPosition(lineRenderer.positionCount-1, newFingerPos); 
+                   
         }
 
         private void CreateLine() 
@@ -75,11 +76,12 @@ namespace Assets.Scripts
             var vec = GetRaycastHit(Input.mousePosition).point;
 
             currentLine = Instantiate(linePrefab, vec, Quaternion.identity);
+            paintedAreaCalculator.AddLine(currentLine);
+
             lineRenderer = currentLine.GetComponent<LineRenderer>();
             edgeCollider = currentLine.GetComponent<EdgeCollider2D>();
             fingerPositions.Clear();
     
-
             fingerPositions.Add(vec);
             fingerPositions.Add(vec);
             lineRenderer.SetPosition(0, fingerPositions[0]);

@@ -32,10 +32,11 @@ public class OpponentMoving : MonoBehaviour
             randDirectionalVal = UnityEngine.Random.Range(0, 2);
         }
       
-        if (transform.position.z < CharacterValues.minPosZ ||
-            transform.position.z > CharacterValues.maxPosZ) 
+        if (
+            (transform.position.z < CharacterValues.minPosZ ||
+            transform.position.z > CharacterValues.maxPosZ)) 
         {
-            randDirectionalVal = (randDirectionalVal + 1) %2;   //platform dýþýna geliyorsa yön deðiþtir
+            Restart();
         }
 
         RunCharacter();
