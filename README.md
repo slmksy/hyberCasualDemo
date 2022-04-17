@@ -1,4 +1,5 @@
 # hyberCasualDemo
 
-karakter hareketi, sol-sağ ok tuşları
-duvar boyama, mouse sol tuş basılıp sürükleme
+Karakter hareketi, sol-sağ ok tuşları.
+
+Duvar boyama, mouse sol tuş basılıp sürükleme
