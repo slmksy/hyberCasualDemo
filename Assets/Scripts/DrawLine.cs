@@ -33,7 +33,7 @@ namespace Assets.Scripts
                 if (distance > 0.1f)
                 {                   
                     UpdateLine(newPoint);                  
-                    paintedAreaCalculator.CalculatePaintedArea(newPoint, distance, lineRenderer.startWidth);                   
+                    paintedAreaCalculator.CalculatePaintedArea(newPoint, lastPoint, distance, lineRenderer.startWidth);                   
                 }            
             }
         }

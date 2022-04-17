@@ -24,15 +24,15 @@ namespace Assets.Scripts
         }
 
    
-        public void CalculatePaintedArea(Vector3 newPoint, float distance, float width)
+        public void CalculatePaintedArea(Vector3 newPoint, Vector3 lastPoint, float distance, float width)
         {
-            if (IsAlreadyPaintedArea(newPoint)) 
+
+            if (IsAlreadyPaintedArea(newPoint) || IsAlreadyPaintedArea(lastPoint)) 
             {
                 return;
             }
-            Debug.LogWarning("distance " + distance);
 
-            var paintedArea =  distance * width;
+            var paintedArea = distance * width;
            
             totalPaintedArea += paintedArea;
 
@@ -43,14 +43,18 @@ namespace Assets.Scripts
 
         private bool IsAlreadyPaintedArea(Vector3 point)
         {
-            for (int i = 0; i < lines.Count - 1; ++i)
+            for (int i = 0; i < lines.Count; ++i)
             {
                 var lineRenderer = lines[i].GetComponent<LineRenderer>();
                
-                for(int k = 0; k < lineRenderer.positionCount; ++i)                 
+                for(int k = 0; k < lineRenderer.positionCount; ++k)                 
                 {
+                    if(i == lines.Count - 1 && k == lineRenderer.positionCount -5)                    
+                    {
+                        return false;
+                    }
                     var distance = Vector3.Distance(point, lineRenderer.GetPosition(k));
-                    if(distance < 0.01f) 
+                    if(distance < 0.7f) 
                     {
                         return true;
                     }
