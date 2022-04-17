@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MandatoryHorizontalMoving : MonoBehaviour
 {
-    private const int maxPosZ = 12;
-    private const int minPosZ = -12;
+    private const int maxPosZ = 8;
+    private const int minPosZ = -8;
     private float speed = 3f;
     private int directionVal = 1;
     
